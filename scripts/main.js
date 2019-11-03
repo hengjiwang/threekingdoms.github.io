@@ -116,6 +116,11 @@ function makeGraph(nodes, edges, index) {
         if (nodes[j].name == 'Lady Sun') {
             nodes[j].image = 'sun-shangxiang-(informal).jpg';
         }
+
+        if (nodes[j].name == 'Liu Chan') {
+            nodes[j].name = 'Liu Shan'
+            nodes[j].image = 'liu-shan.jpg';
+        }
     }
 
 
