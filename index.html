@@ -1,0 +1,131 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8">
+    <meta name="author" content="Hengji Wang">
+    <meta name="description" content="Visualization of statistics in Romance of Three Kingdoms characters">
+    <title>Romance of Three Kingdoms Social Network</title>
+    <link rel="shortcut icon" href="images/sanguo.ico" type="image/x-icon">
+    <!-- <link href="https://fonts.googleapis.com/css?family=Lobster&display=swap" rel="stylesheet"> -->
+    <link rel="stylesheet" type="text/css" href="styles/style.css">
+    <script type='text/javascript' src='scripts/d3.js'></script>
+</head>
+
+<body>
+    <header>
+        <h1><em>Romance of Three Kingdoms</em> Social Network</h1>
+        <nav>
+            <div class="select period">
+                <label for="period">Period: </label>
+                <!-- <input type="text" id="period" name="period" list="suggest-period"> -->
+                <select id="period" name="period">
+                    <option value="all-periods" selected>All Periods</option>
+                    <option value="yellow-turban-rebellion">Yellow Turban Rebellion</option>
+                    <option value="dong-zhuo-in-power">Dong Zhuo in Power</option>
+                    <option value="rivalry-of-warlords">Rivalry of Warlords</option>
+                    <option value="battle-of-guandu">Battle of Guandu</option>
+                    <option value="battle-of-red-cliffs">Battle of Red Cliffs</option>
+                    <option value="liu-bei's-era">Liu Bei's Era</option>
+                    <option value="northern-expeditions">Northern Expeditions</option>
+                    <option value="post-zhuge-era">Post-Zhuge Era</option>
+                </select>
+            </div>
+
+            <!-- <div id="profile-button" class='profile'>
+                <button type="button">Profile</button>
+            </div> -->
+
+            <div class="select people">
+                <label for="people">People: </label>
+                <input type="text" id="people" name="people" list="suggest-people">
+                <datalist id="suggest-people">
+                <option>All People</option>
+                <optgroup label="Wei">
+                    <option>Cao Cao</option>
+                </optgroup>
+                <optgroup label="Shu">
+                    <option>Liu Bei</option>
+                </optgroup>
+                <optgroup label="Wu">
+                    <option>Sun Quan</option>
+                </optgroup>  
+                <optgroup label="Jin">
+                    <option>Sima Yi</option>
+                </optgroup>  
+                <optgroup label="Other">
+                    <option>Dong Zhuo</option>
+                </optgroup>
+                </datalist>
+            </div>
+        </nav>
+    </header>
+
+    <main>
+        <article>
+            <div class="profile" id="profile">
+                <p id="all-periods">On and on the Great River rolls, racing east.</br>
+                    Of proud and gallant heroes its white-tops leave no trace,</br>
+                    As right and wrong, pride and fall turn all at once unreal.</br>
+                    Yet ever the green hills stay</br>
+                    To blaze in the west-waning day.
+                    </br>
+                    </br>
+                    Fisher and woodsmen comb the river isles.</br>
+                    White-crowned, they’ve seen enough of spring and autumn tide.</br>
+                    To make good company over the wine jar,</br>
+                    Where many a famed event,</br>
+                    Provides their merriment.</br>
+                    </br>
+                    -- <a href="https://en.wikipedia.org/wiki/Yang_Shen">Yang Shen</a>(1488-1559), translated by <a href="https://as.nyu.edu/content/nyu-as/as/faculty/moss-roberts.html">Moss Roberts</a>.
+                </p>
+                <p id="yellow-turban-rebellion">At the end of the <a href="https://en.wikipedia.org/wiki/Han_dynasty">Eastern Han dynasty</a>, the fatuity of the Emperor and the cruel oppression from landowners made the lives of peasants miserable. Finally, in 184 AD, a huge peasant
+                    revolt led by <a href="https://en.wikipedia.org/wiki/Zhang_Jue">Zhang Jue</a> broke out and swept China in a short time. The weak Han central government had to encourage local officers to grow their own armed forces to suppress the
+                    rebels, which facilitated the formation of regional warlords.</BR>
+                    </BR>Meanwhile, in the imperial palace, the <a href="https://en.wikipedia.org/wiki/Ten_Attendants">court eunuchs</a> gradually became influential and abused their power. To exterminate the eunuchs, the commander-in-chief <a href="https://en.wikipedia.org/wiki/He_Jin">He Jin</a>                    invited the Hedong warlord <a href="https://en.wikipedia.org/wiki/Dong_Zhuo">Dong Zhuo</a> to the capital <a href="https://en.wikipedia.org/wiki/Luoyang">Luoyang</a>. However, the eunuchs preemptively assassinated He Jin and kidnapped
+                    the Emperor. Immediately after that, the noble <a href="https://en.wikipedia.org/wiki/Yuan_Shao">Yuan Shao</a> led the army into the palace and killed all court eunuchs, thus suppressed the chaos. At the same time, Dong Zhuo and his
+                    army were reaching the capital.</p>
+                <p id="dong-zhuo-in-power">After Dong Zhuo arrived at the court, he rapidly grasped the top power and behave arrogant and overbearing. In September 189 AD, Dong Zhuo announced to dethrone the current Emperor and picked <a href="https://en.wikipedia.org/wiki/Emperor_Xian_of_Han">Liu Xie</a>,
+                    an 8-year-old child, as the new Emperor. This action greatly irritated the warlords and nobles. Led by Yuan Shao, warlords formed a coalition against Dong Zhuo and marched on Luoyang. To evade the crusade, Dong Zhuo burned Luoyang
+                    and moved the capital to <a href="https://en.wikipedia.org/wiki/Chang%27an">Chang'an</a>. Dongzhuo’s atrocity made himself very unpopular. Under the scheme of <a href="https://en.wikipedia.org/wiki/Wang_Yun_(Han_dynasty)">Wang Yun</a>,
+                    the relationship between Dong Zhuo and his step-son <a href="https://en.wikipedia.org/wiki/L%C3%BC_Bu">Lu Bu</a> deteriorated. Finally, in 192 AD, Lu Bu slayed Dong Zhuo.</p>
+                <p id="rivalry-of-warlords">After Dong Zhuo died, his former generals <a href="https://en.wikipedia.org/wiki/Li_Jue_(Han_dynasty)">Li Jue</a> and <a href="https://en.wikipedia.org/wiki/Guo_Si">Guo Si</a> marched into Chang'an, killed Wang Yun and expelled the little
+                    Emperor. Meanwhile, regional warlords started holding wild ambitions and began attacking and annexing each other. No one still cared the little Emperor, except for <a href="https://en.wikipedia.org/wiki/Cao_Cao">Cao Cao</a>, who realized
+                    the huge value under the title. In 196 AD, Cao Cao invited the Emperor into his base <a href="https://en.wikipedia.org/wiki/Xuchang">Xuchang</a>, then immediately controlled him, and began commanding and crusading other warlords in
+                    the name of the Emperor’s edict. With such legitimacy and his exceptional leadership, Cao Cao conquered Lu Bu, Zhang Xiu, Zhang Yang, etc. and annexed the whole central plain of China around 199 AD. Cao Cao’s rapid rise shocked Yuan
+                    Shao. A final battle between Yuan Shao and Cao Cao became inevitable. </p>
+                <p id="battle-of-guandu">In February 200 AD, Yuan Shao led 110,000 soldiers marching on <a href="https://en.wikipedia.org/wiki/Battle_of_Guandu">Guandu</a>, aiming at crossing the <a href="https://en.wikipedia.org/wiki/Yellow_River">Yellow River</a> and annihilating
+                    Cao Cao. Cao Cao led 40,000 soldiers and resisted fiercely, killed Yuan Shao’s top generals Yan Liang and Wen Chou. Battles held for eight months, Cao Cao exhausted the supply and fell in danger. In October 200 AD, Cao Cao adopted
+                    the suggestion of Xu You, led 5,000 soldiers sneakily attacked Wuchao, burned all supplies of Yuan Shao, then immediately assaulted Yuan Shao’s base, destroyed the main force including 70,000 soldiers. In 202 AD, Yuan Shao died in
+                    anger. Cao Cao spent seven years in eliminating Yuan’s remnants. In 207 AD, Cao Cao unified northern China.</p>
+                <p id="battle-of-red-cliffs">In 208 AD, Cao Cao appointed himself as the Prime Minister of the Han dynasty, starting the plan of unifying China. In August 208 AD, Jingzhou’s warlord Liu Biao died, then Cao Cao led 190,000 soldiers towards Jingzhou and subdued Liu
+                    Biao’s heir Liu Cong. Warlord Liu Bei escaped to Wu, seeking a coalition with Sun Quan against Cao Cao. </BR>
+                    </BR>Meanwhile, Cao Cao led 260,000 soldiers marching on Wu. Sun Quan ordered his commander-in-chief Zhou Yu lead 30,000, together with Liu Bei’s 20,000 soldiers to resist Cao Cao. Two sides confronted at Red Cliffs, divided by the Yangtze
+                    River. In November 208 AD, Zhou Yu used a fake-surrender scheme, rushed ten fired warships into Cao Cao’s base, burned all warships and camps of Cao Cao. Then Zhou Yu and Liu Bei hunted down Cao Cao’s retreating army. Cao Cao lost
+                    100,000 soldiers, and his dream of unifying China broke.</p>
+                <p id="liu-bei's-era">After the Battle of Red Cliffs, Liu Bei rapidly conquered Jingzhou, then conquered Yizhou in 214 AD. In 219 AD, to contest the legitimacy with Cao Cao who had claimed to be the King of Wei, Liu Bei conquered Hanzhong and claimed to be
+                    the King of Hanzhong. Meanwhile, Liu Bei’s commander Guan Yu conquered Xiangyang and sieged Fancheng. Liu Bei’s career reached its peak.</BR>
+                    </BR>However, in October 219 AD, Sun Quan broke the coalition and sneakily assaulted Jingzhou, captured and executed Guan Yu. In 220 AD, Cao Cao died, his heir Cao Pi usurped the Han dynasty, claimed to be Emperor of Wei. As a response,
+                    Liu Bei claimed to be Emperor of the Han dynasty (Shu Han), then led 40,000 soldiers marching on Wu, in the name of revenge for Guan Yu. In 222 AD, Liu Bei was defeated by Lu Xun at Yiling, retreated to Baidicheng and fell ill. He
+                    entrusted his heir Liu Shan to the Prime Minister Zhuge Liang, then died in 223 AD.</p>
+                <p id="northern-expeditions">After Liu Bei died, Shu Han was at the edge of elimination, and the new Emperor Liu Shan was commonly assessed as mediocre. Thus, Zhuge Liang started taking charge of almost all governing affairs and was regarded as a savior. Zhuge Liang
+                    rebuilt the coalition with Wu, subdued the southern barbarians, and recovered the economy. Then during 228-234 AD, Zhuge Liang organized five northern expeditions against Wei, in the name of recovering the Han dynasty. Facing Wei which
+                    is much stronger than Shu Han, Zhuge Liang held a military advantage, defeated Wei’s top generals many times, and was assessed as “a wizard without peer in this era” by his rival Sima Yi. Unfortunately, exhausted by a tremendous amount
+                    of affairs including economy, military and personnel, Zhuge Liang died in the army in 234 AD, at the age of 54. </p>
+                <p id="post-zhuge-era">After Zhuge Liang died, his discipline Jiang Wei inherited the military leadership of Shu Han, and organized eleven northern expeditions against Wei but gained little. In 263 AD, Wei’s generals Deng Ai and Zhong Hui led 180,000 soldiers
+                    marching on Chengdu. The Emperor Liu Shan surrendered and Shu Han demised. The long period of confrontation against Shu Han gave Sima’s family a top power in Wei. Finally in 266 AD, Sima Yan usurped the Wei dynasty and claimed to be
+                    Emperor of Jin. In 279 AD, Jin conquered Wu and unified China, which marked the end of the Three Kingdoms period.</p>
+            </div>
+        </article>
+        <aside></aside>
+        <graph></graph>
+    </main>
+
+    <footer>
+        I am a footer
+    </footer>
+    <script src="scripts/main.js"></script>
+    <script src="scripts/aside.js"></script>
+</body>
+
+</html>
