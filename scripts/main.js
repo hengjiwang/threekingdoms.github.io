@@ -63,6 +63,22 @@ d3.json('data/' + nodePath, function(nodes) {
     })
 })
 
+// Switch from young to old if proper
+for (let j = 0; j < 50; j++) {
+
+    if (index > 5 && majors1.indexOf(nodes[j].name) >= 0) {
+        nodes[j].image = nodes[j].image.replace('young', 'old');
+    } else if (index > 6 && majors2.indexOf(nodes[j].name) >= 0) {
+        nodes[j].image = nodes[j].image.replace('young', 'old');
+    } else if (index > 7 && majors3.indexOf(nodes[j].name) >= 0) {
+        nodes[j].image = nodes[j].image.replace('young', 'old');
+    }
+
+    if (nodes[j].name == 'Lady Sun') {
+        nodes[j].image = 'sun-shangxiang-(informal).jpg';
+    }
+}
+
 // Change displayed innerText if option of period change
 period.onchange = function() {
     index = this.selectedIndex
