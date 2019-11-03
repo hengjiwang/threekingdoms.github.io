@@ -24,6 +24,17 @@ let tooltip = d3.select('body')
     .style('font-size', '12px')
     .text('')
 
+let majors1 = ['Cao Cao', 'Gan Ning',
+    'Guan Yu', 'Huang Zhong', 'Liu Bei', 'Lu Bu', 'Sun Ce', 'Sun Quan',
+    'Xu Huang', 'Xun Yu', 'Zhang Fei', 'Zhang Liao', 'Zhou Yu'
+]
+
+let majors2 = ['Lu Meng', 'Lu Xun', 'Ma Chao', 'Sima Yi', 'Zhang He',
+    'Zhuge Liang', 'Zhao Yun'
+]
+
+let majors3 = ['Deng Ai', 'Jiang Wei']
+
 // ------------------Profile-------------------------------
 
 let nodePaths = ["count-1-120.json", "count-1-2.json", "count-3-9.json",
@@ -63,9 +74,6 @@ period.onchange = function() {
     nodePath = nodePaths[index];
     edgePath = edgePaths[index];
 
-    console.log(nodePath)
-    console.log(edgePath)
-
     // Rebuild canvas
     svg = d3.select("graph").select("svg")
     svg.remove()
@@ -77,25 +85,15 @@ period.onchange = function() {
     // Rebuild graph
     d3.json('data/' + nodePath, function(nodes) {
         d3.json('data/' + edgePath, function(edges) {
-            makeGraph(nodes, edges);
+            makeGraph(nodes, edges, index);
         })
     })
 }
 
-// Choose to show the profile texts or not
-profileButton.onclick = function() {
-    if (profileItems[index].style.display == "none") {
-        profileItems[index].style.display = "inline";
-    } else {
-        profileItems[index].style.display = "none";
-    }
-}
-
 // -------------------Make graph------------------------------
 
-
 // Build graph based on given nodes and edges
-function makeGraph(nodes, edges) {
+function makeGraph(nodes, edges, index) {
     // Filter people
     nodes = nodes.slice(0, 50);
 
@@ -103,8 +101,21 @@ function makeGraph(nodes, edges) {
     let maxCount = nodes[0].count;
     let minCount = nodes[nodes.length - 1].count
 
+    // Replace young images to old when proper
     for (let j = 0; j < nodes.length; j++) {
         nodes[j].count = 15 + 45 * Math.pow(nodes[j].count - minCount, 0.6) / Math.pow(maxCount - minCount, 0.6);
+
+        if (index > 5 && majors1.indexOf(nodes[j].name) >= 0) {
+            nodes[j].image = nodes[j].image.replace('young', 'old');
+        } else if (index > 6 && majors2.indexOf(nodes[j].name) >= 0) {
+            nodes[j].image = nodes[j].image.replace('young', 'old');
+        } else if (index > 7 && majors3.indexOf(nodes[j].name) >= 0) {
+            nodes[j].image = nodes[j].image.replace('young', 'old');
+        }
+
+        if (nodes[j].name == 'Lady Sun') {
+            nodes[j].image = 'sun-shangxiang-(informal).jpg';
+        }
     }
 
 
@@ -153,24 +164,10 @@ function makeGraph(nodes, edges) {
                 return 350
             }
         })
-        // .linkStrength(function(l) {
-        //     if (l.source.faction == l.target.faction) {
-        //         if (l.source.faction != 'Other') {
-        //             return 2.0
-        //         } else {
-        //             return 0.1
-        //         }
-        //     } else {
-        //         return 0.1
-        //     }
-        // })
         .friction(0)
         .charge([-100])
 
     force.start();
-
-    console.log(nodes);
-    console.log(edges);
 
     // Add lines
     let svgEdges = svg.selectAll("line")
