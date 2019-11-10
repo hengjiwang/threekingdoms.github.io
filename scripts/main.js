@@ -9,11 +9,11 @@ let svg = d3.select("graph")
     .append('svg')
     .attr('width', svgWidth)
     .attr('height', svgHeight)
-let color = d3.scale.category20();
+let color = { "Wei": "blue", "Shu": "green", "Wu": "red", "Jin": "purple", "Other": "grey" };
 let tooltip = d3.select('body')
     .append('div')
     .style('position', 'absolute')
-    .style('z-index', '10')
+    // .style('z-index', '10')
     .style('background-color', 'white')
     // .style('width', '80px')
     // .style('height', '20px')
@@ -65,17 +65,14 @@ d3.json('data/' + nodePath, function(nodes) {
 
 // Change displayed innerText if option of period change
 period.onchange = function() {
+    profileItems[index].style.display = "none";
     index = this.selectedIndex
-    for (let i = 0; i < profileItems.length; i++) {
-        profileItems[i].style.display = "none";
-    }
     profileItems[index].style.display = "inline";
 
     nodePath = nodePaths[index];
     edgePath = edgePaths[index];
 
     // Rebuild canvas
-    svg = d3.select("graph").select("svg")
     svg.remove()
     svg = d3.select("graph")
         .append('svg')
@@ -93,7 +90,9 @@ period.onchange = function() {
 // -------------------Make graph------------------------------
 
 // Build graph based on given nodes and edges
-function makeGraph(nodes, edges, index) {
+
+// edit nodes and edges:
+function editData(nodes, edges, index) {
     // Filter people
     nodes = nodes.slice(0, 50);
 
@@ -118,19 +117,17 @@ function makeGraph(nodes, edges, index) {
         }
     }
 
-
     // Add hashmap
 
     let hashmap = {}
     for (let i = 0; i < nodes.length; i++) {
         hashmap[nodes[i].name] = i;
     }
-
     // Change elements in edges to numbers
 
     let new_edges = [];
     for (let i = 0; i < edges.length; i++) {
-        if (typeof(hashmap[edges[i].source]) == "undefined" || typeof(hashmap[edges[i].target]) == "undefined") {} else {
+        if (hashmap.hasOwnProperty(edges[i].source) && hashmap.hasOwnProperty(edges[i].target)) {
             new_edges.push({
                 "source": hashmap[edges[i].source],
                 "target": hashmap[edges[i].target],
@@ -138,88 +135,79 @@ function makeGraph(nodes, edges, index) {
             });
         }
     }
+    return { "nodes": nodes, "edges": new_edges };
+}
 
-    edges = new_edges;
+// plot svg
 
-    // Normalize edge weights
-    let maxWeight = edges[0].weight;
-    let minWeight = edges[edges.length - 1].weight;
-    for (let j = 0; j < edges.length; j++) {
-        edges[j].weight = 10 * (edges[j].weight - minWeight) / (maxWeight - minWeight);
-    }
-
+function plotSVG(nodes, edges, oriedges, distance, minEdge, maxEdge) {
     // Layout
     let force = d3.layout.force()
         .nodes(nodes)
         .links(edges)
-        .size([1000, 1000])
+        .size([800, 800])
         .linkDistance(function(l) {
             if (l.source.faction == l.target.faction) {
                 if (l.source.faction != 'Other') {
-                    return 200
+                    return distance;
                 } else {
-                    return 350
+                    return distance * 1.75;
                 }
             } else {
-                return 350
+                return distance * 1.75;
             }
         })
         .friction(0)
-        .charge([-100])
+        .gravity(0)
+        .theta(1)
+        .charge(-200);
 
     force.start();
 
     // Add lines
+    console.log(minEdge, maxEdge);
+    let colorscale = d3.scale.linear().domain([minEdge, maxEdge]).range([0.2, 1]);
+    let linescale = d3.scale.linear().domain([minEdge, maxEdge]).range([1, 10]);
     let svgEdges = svg.selectAll("line")
         .data(edges)
         .enter()
         .append("line")
-        .style("stroke", "#ccc")
+        .style("stroke", function(d) {
+            return "rgba(150,150,150," + colorscale(d.weight) + ")";
+        })
         .style("stroke-width", function(d) {
-            return d.weight;
+            return linescale(d.weight);
         });
 
     // Add nodes
+    // let countScale = d3.scale.linear().domain([minCount, maxCount]).range([15, 60]);
     let svgNodes = svg.selectAll("circle")
         .data(nodes)
         .enter()
         .append("circle")
+        .attr("class", "circle")
+        .attr("title", function(d) {
+            return d.name;
+        })
+        .attr("src", function(d) {
+            return d.image;
+        })
         .attr("r", function(d) {
             return d.count;
         })
         .style("stroke", function(d) {
-            if (d.faction == 'Wei') {
-                return "blue";
-            } else if (d.faction == 'Shu') {
-                return "green";
-            } else if (d.faction == 'Wu') {
-                return "red";
-            } else if (d.faction == 'Jin') {
-                return "purple";
-            } else {
-                return "gray";
-            }
+            return color[d.faction]; // || "grey";
         })
         .style("stroke-width", 4)
         //Add avatars
         .style("fill", function(d, i) {
 
             if (d.image == "undefined") {
-                if (d.faction == 'Wei') {
-                    return "blue";
-                } else if (d.faction == 'Shu') {
-                    return "green";
-                } else if (d.faction == 'Wu') {
-                    return "red";
-                } else if (d.faction == 'Jin') {
-                    return "purple";
-                } else {
-                    return "gray";
-                }
+                return color[d.faction];
             }
 
             let img_w = d.count * 2;
-            let img_h = d.count * 2;
+            let img_h = img_w;
 
             let defs = svg.append("defs").attr("id", "imgdefs")
 
@@ -273,4 +261,60 @@ function makeGraph(nodes, edges, index) {
                 return d.y;
             });
     });
+
+    svgNodes.on("dblclick", function(d) {
+        svg.remove()
+        svg = d3.select("graph")
+            .append('svg')
+            .attr('width', svgWidth)
+            .attr('height', svgHeight);
+        let newEdges = [];
+        let newNodes = [];
+        let minEdge = 10;
+        let maxEdge = 0;
+        // let minCount = 1000;
+        // let maxCount = 0;
+        newNodes.push({ "name": d.name, "count": d.count, "image": d.image, "faction": d.faction });
+        let numNodes = 0;
+        for (let i = 0; i < oriedges.length; i++) {
+            if ((d.name === oriedges[i].source.name) || (d.name === oriedges[i].target.name)) {
+                numNodes++;
+                newEdges.push({
+                    "source": 0,
+                    "target": numNodes,
+                    "weight": oriedges[i].weight
+                });
+                minEdge = oriedges[i].weight < minEdge ? oriedges[i].weight : minEdge;
+                maxEdge = oriedges[i].weight > maxEdge ? oriedges[i].weight : maxEdge;
+                if (d.name == oriedges[i].source.name) {
+                    newNodes.push({
+                        "name": oriedges[i].target.name,
+                        "count": oriedges[i].target.count,
+                        "image": oriedges[i].target.image,
+                        "faction": oriedges[i].target.faction
+                    });
+                    // minCount = oriedges[i].target.count < minCount ? oriedges[i].target.count : minCount;
+                    // maxCount = oriedges[i].target.count > maxCount ? oriedges[i].target.count : maxCount;
+                } else {
+                    newNodes.push({
+                        "name": oriedges[i].source.name,
+                        "count": oriedges[i].source.count,
+                        "image": oriedges[i].source.image,
+                        "faction": oriedges[i].source.faction
+                    });
+                    // minCount = oriedges[i].source.count < minCount ? oriedges[i].source.count : minCount;
+                    // maxCount = oriedges[i].source.count > maxCount ? oriedges[i].source.count : maxCount;
+                }
+
+            }
+        }
+        return plotSVG(newNodes, newEdges, oriedges, 150, minEdge, maxEdge);
+    })
+}
+
+function makeGraph(nodes, edges, index) {
+    let data = editData(nodes, edges, index);
+    plotSVG(data.nodes, data.edges, data.edges, 200,
+        edges[edges.length - 1].weight, data.edges[0].weight,
+    );
 }

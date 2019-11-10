@@ -43,7 +43,7 @@ main {
 }
 
 main article {
-    position: absolute;
+    /* position: absolute; */
     display: block;
     text-align: left;
     z-index: 3;
@@ -61,6 +61,7 @@ main aside {
 }
 
 main graph {
+    /* display: block; */
     top: 10px;
     z-index: 5;
 }
