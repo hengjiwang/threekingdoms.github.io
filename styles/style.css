@@ -9,7 +9,6 @@ body {
 header h1 {
     font-size: 38px;
     text-align: center;
-    /* text-shadow: 2px 2px 10px black; */
 }
 
 header nav {
@@ -51,6 +50,15 @@ main article {
     background: rgba(204, 204, 204, 0.3);
 }
 
+main a:link {
+    color: black;
+}
+
+main .note {
+    font-family: 'Roboto', sans-serif;
+    font-weight: bold;
+}
+
 main aside {
     display: inline-block;
     position: absolute;
@@ -69,7 +77,21 @@ main graph {
 footer {
     height: 30px;
     line-height: 30px;
-    margin-top: 10px;
+    padding-top: 5px;
+    margin-bottom: 40px;
     padding-left: 20px;
     border-top: 2px solid black;
+}
+
+footer a:link {
+    text-decoration: none;
+    color: black;
+}
+
+footer a:hover {
+    text-decoration: underline;
+}
+
+a:visited {
+    color: black;
 }
