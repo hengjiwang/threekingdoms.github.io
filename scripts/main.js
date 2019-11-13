@@ -4,11 +4,13 @@ let profileItems = profile.getElementsByTagName("p");
 let profileTexts = [];
 let profileButton = document.getElementById("profile-button")
 let svgWidth = '100%';
-let svgHeight = 900;
+let svgHeight = 800;
 let svg = d3.select("graph")
     .append('svg')
     .attr('width', svgWidth)
     .attr('height', svgHeight)
+    .attr("meetOrSlice", "slice");
+
 let color = { "Wei": "blue", "Shu": "green", "Wu": "red", "Jin": "purple", "Other": "grey" };
 let tooltip = d3.select('body')
     .append('div')
@@ -78,6 +80,7 @@ period.onchange = function() {
         .append('svg')
         .attr('width', svgWidth)
         .attr('height', svgHeight)
+        .attr("meetOrSlice", "slice");
 
     // Rebuild graph
     d3.json('data/' + nodePath, function(nodes) {
@@ -102,7 +105,7 @@ function editData(nodes, edges, index) {
 
     // Replace young images to old when proper
     for (let j = 0; j < nodes.length; j++) {
-        nodes[j].count = 15 + 45 * Math.pow(nodes[j].count - minCount, 0.6) / Math.pow(maxCount - minCount, 0.6);
+        nodes[j].count = 15 + 30 * Math.pow(nodes[j].count - minCount, 0.6) / Math.pow(maxCount - minCount, 0.6);
 
         if (index > 5 && majors1.indexOf(nodes[j].name) >= 0) {
             nodes[j].image = nodes[j].image.replace('young', 'old');
@@ -140,30 +143,31 @@ function editData(nodes, edges, index) {
 
 // plot svg
 
-function plotSVG(nodes, edges, oriedges, distance, minEdge, maxEdge) {
+function plotSVG(nodes, edges, myclick, oriedges, minEdge, maxEdge) {
     // Layout
+    let forceScale = d3.scale.linear().domain([minEdge, maxEdge]).range([300, 150]);
     let force = d3.layout.force()
         .nodes(nodes)
         .links(edges)
         .size([800, 800])
         .linkDistance(function(l) {
-            if (l.source.faction == l.target.faction) {
-                if (l.source.faction != 'Other') {
-                    return distance;
-                } else {
-                    return distance * 1.75;
-                }
+            // return forceScale(l.weight);
+            if (myclick) {
+                return forceScale(l.weight);
             } else {
-                return distance * 1.75;
+                if (l.source.faction == l.target.faction & l.source.faction != "Other") {
+                    return forceScale(l.weight) / 5 + 200;
+                } else {
+                    return forceScale(l.weight) / 5 + 300;
+                }
             }
         })
         .friction(0)
         .gravity(0)
-        .theta(1)
         .charge(-200);
 
+    // force.resume();
     force.start();
-
     // Add lines
     console.log(minEdge, maxEdge);
     let colorscale = d3.scale.linear().domain([minEdge, maxEdge]).range([0.2, 1]);
@@ -178,6 +182,7 @@ function plotSVG(nodes, edges, oriedges, distance, minEdge, maxEdge) {
         .style("stroke-width", function(d) {
             return linescale(d.weight);
         });
+
 
     // Add nodes
     // let countScale = d3.scale.linear().domain([minCount, maxCount]).range([15, 60]);
@@ -237,44 +242,49 @@ function plotSVG(nodes, edges, oriedges, distance, minEdge, maxEdge) {
         })
         .call(force.drag);
 
+
     // Update
     force.on("tick", function() {
         svgEdges.attr("x1", function(d) {
-                return d.source.x;
+                return validateXY(d.source.x, "x");
             })
             .attr("y1", function(d) {
-                return d.source.y;
+                return validateXY(d.source.y, "y");
             })
             .attr("x2", function(d) {
-                return d.target.x;
+                return validateXY(d.target.x, "x");
             })
             .attr("y2", function(d) {
-                return d.target.y;
-            });
+                    return validateXY(d.target.y, "y");
+                }
+
+            );
 
         svgNodes.attr("cx", function(d) {
-                // d.x += (svgWidth / 2 - d.x) * 0.001;
-                return d.x;
+                return validateXY(d.x, "x");
             })
             .attr("cy", function(d) {
-                // d.y += (svgHeight / 2 - d.y) * 0.001;
-                return d.y;
+                return validateXY(d.y, "y");
             });
     });
 
-    svgNodes.on("dblclick", function(d) {
-        svg.remove()
+
+    svgNodes.on("click", function(d) {
+        if (d3.event.defaultPrevented) return;
+        svg.remove();
         svg = d3.select("graph")
             .append('svg')
             .attr('width', svgWidth)
-            .attr('height', svgHeight);
+            .attr('height', svgHeight)
+            .attr("meetOrSlice", "slice");
+
         let newEdges = [];
         let newNodes = [];
         let minEdge = 10;
         let maxEdge = 0;
-        // let minCount = 1000;
-        // let maxCount = 0;
-        newNodes.push({ "name": d.name, "count": d.count, "image": d.image, "faction": d.faction });
+        let minCount = 1000;
+        let maxCount = 0;
+        newNodes.push({ "name": d.name, "count": 55, "image": d.image, "faction": d.faction });
         let numNodes = 0;
         for (let i = 0; i < oriedges.length; i++) {
             if ((d.name === oriedges[i].source.name) || (d.name === oriedges[i].target.name)) {
@@ -293,8 +303,8 @@ function plotSVG(nodes, edges, oriedges, distance, minEdge, maxEdge) {
                         "image": oriedges[i].target.image,
                         "faction": oriedges[i].target.faction
                     });
-                    // minCount = oriedges[i].target.count < minCount ? oriedges[i].target.count : minCount;
-                    // maxCount = oriedges[i].target.count > maxCount ? oriedges[i].target.count : maxCount;
+                    minCount = oriedges[i].target.count < minCount ? oriedges[i].target.count : minCount;
+                    maxCount = oriedges[i].target.count > maxCount ? oriedges[i].target.count : maxCount;
                 } else {
                     newNodes.push({
                         "name": oriedges[i].source.name,
@@ -302,19 +312,35 @@ function plotSVG(nodes, edges, oriedges, distance, minEdge, maxEdge) {
                         "image": oriedges[i].source.image,
                         "faction": oriedges[i].source.faction
                     });
-                    // minCount = oriedges[i].source.count < minCount ? oriedges[i].source.count : minCount;
-                    // maxCount = oriedges[i].source.count > maxCount ? oriedges[i].source.count : maxCount;
+                    minCount = oriedges[i].source.count < minCount ? oriedges[i].source.count : minCount;
+                    maxCount = oriedges[i].source.count > maxCount ? oriedges[i].source.count : maxCount;
                 }
-
             }
         }
-        return plotSVG(newNodes, newEdges, oriedges, 150, minEdge, maxEdge);
-    })
+
+        let nodeScale = d3.scale.linear().domain([minCount, maxCount]).range([15, 45]);
+        for (i = 1; i < newNodes.length; i++) {
+            newNodes[i].count = nodeScale(newNodes[i].count);
+        }
+
+        return plotSVG(newNodes, newEdges, true, oriedges, minEdge, maxEdge);
+    });
+}
+
+function validateXY(val, xy) {
+    if (xy == "x") {
+        let webWidth = document.body.clientWidth - 30;
+        return val > 30 ? (val > webWidth ? webWidth : val) : 30;
+    } else {
+        let webHeight = svgHeight - 30;
+        return val > 30 ? (val > webHeight ? webHeight : val) : 30;
+    }
 }
 
 function makeGraph(nodes, edges, index) {
     let data = editData(nodes, edges, index);
-    plotSVG(data.nodes, data.edges, data.edges, 200,
+    plotSVG(data.nodes, data.edges, false, data.edges,
         edges[edges.length - 1].weight, data.edges[0].weight,
     );
+    let svg2 = d3.select("graph").select("svg");
 }
