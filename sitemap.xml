@@ -1,0 +1,87 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<urlset
+      xmlns="http://www.sitemaps.org/schemas/sitemap/0.9"
+      xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+      xsi:schemaLocation="http://www.sitemaps.org/schemas/sitemap/0.9
+            http://www.sitemaps.org/schemas/sitemap/0.9/sitemap.xsd">
+<!-- created with Free Online Sitemap Generator www.xml-sitemaps.com -->
+
+
+<url>
+  <loc>https://imhengji.wang/</loc>
+  <lastmod>2019-12-02T04:25:10+00:00</lastmod>
+  <priority>1.00</priority>
+</url>
+<url>
+  <loc>https://imhengji.wang/tags/</loc>
+  <lastmod>2019-12-02T04:25:10+00:00</lastmod>
+  <priority>0.80</priority>
+</url>
+<url>
+  <loc>https://imhengji.wang/categories/</loc>
+  <lastmod>2019-12-02T04:25:10+00:00</lastmod>
+  <priority>0.80</priority>
+</url>
+<url>
+  <loc>https://imhengji.wang/archives/</loc>
+  <lastmod>2019-12-02T04:25:10+00:00</lastmod>
+  <priority>0.80</priority>
+</url>
+<url>
+  <loc>https://imhengji.wang/2019/12/01/agile-principles/</loc>
+  <lastmod>2019-12-02T04:25:10+00:00</lastmod>
+  <priority>0.80</priority>
+</url>
+<url>
+  <loc>https://imhengji.wang/categories/Computer-Science/</loc>
+  <lastmod>2019-12-02T04:25:10+00:00</lastmod>
+  <priority>0.80</priority>
+</url>
+<url>
+  <loc>https://imhengji.wang/2019/11/11/COMSOL-Livelink-for-MATLAB-manual/</loc>
+  <lastmod>2019-12-02T04:25:10+00:00</lastmod>
+  <priority>0.80</priority>
+</url>
+<url>
+  <loc>https://imhengji.wang/categories/Manual/</loc>
+  <lastmod>2019-12-02T04:25:10+00:00</lastmod>
+  <priority>0.80</priority>
+</url>
+<url>
+  <loc>https://imhengji.wang/2019/02/18/Hyak-Manual/</loc>
+  <lastmod>2019-12-02T04:25:10+00:00</lastmod>
+  <priority>0.80</priority>
+</url>
+<url>
+  <loc>https://imhengji.wang/categories/index.html</loc>
+  <lastmod>2019-12-02T04:25:10+00:00</lastmod>
+  <priority>0.80</priority>
+</url>
+<url>
+  <loc>https://imhengji.wang/tags/index.html</loc>
+  <lastmod>2019-12-02T04:25:10+00:00</lastmod>
+  <priority>0.80</priority>
+</url>
+<url>
+  <loc>https://imhengji.wang/tags/COMSOL/</loc>
+  <lastmod>2019-12-02T04:25:10+00:00</lastmod>
+  <priority>0.64</priority>
+</url>
+<url>
+  <loc>https://imhengji.wang/tags/Hyak/</loc>
+  <lastmod>2019-12-02T04:25:10+00:00</lastmod>
+  <priority>0.64</priority>
+</url>
+<url>
+  <loc>https://imhengji.wang/tags/MATLAB/</loc>
+  <lastmod>2019-12-02T04:25:10+00:00</lastmod>
+  <priority>0.64</priority>
+</url>
+<url>
+  <loc>https://imhengji.wang/tags/Software-Engineering/</loc>
+  <lastmod>2019-12-02T04:25:10+00:00</lastmod>
+  <priority>0.64</priority>
+</url>
+
+
+</urlset>
