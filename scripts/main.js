@@ -93,6 +93,7 @@ period.onchange = function() {
 
 // deselect button
 button.addEventListener("click", ()=>{
+    console.log("deselect");
     svg.remove();
     svg = d3.select("graph")
         .append('svg')
