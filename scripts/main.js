@@ -68,7 +68,7 @@ d3.json('data/' + nodePath, function(nodes) {
 period.onchange = function() {
     profileItems[index].style.display = "none";
 
-    index = this.selectedIndex
+    index = this.selectedIndex;
     document.cookie = "period=" + index;
     profileItems[index].style.display = "inline";
 
@@ -76,7 +76,7 @@ period.onchange = function() {
     edgePath = edgePaths[index];
 
     // Rebuild canvas
-    svg.remove()
+    svg.remove();
     svg = d3.select("graph")
         .append('svg')
         .attr('width', svgWidth)
@@ -93,6 +93,13 @@ period.onchange = function() {
 
 // deselect button
 button.addEventListener("click", ()=>{
+    svg.remove();
+    svg = d3.select("graph")
+        .append('svg')
+        .attr('width', svgWidth)
+        .attr('height', svgHeight)
+        .attr("meetOrSlice", "slice");
+
     d3.json('data/' + nodePath, function(nodes) {
         d3.json('data/' + edgePath, function(edges) {
             makeGraph(nodes, edges, index);
