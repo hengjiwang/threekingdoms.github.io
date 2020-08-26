@@ -1,8 +1,7 @@
 let period = document.getElementById("period");
 let profile = document.getElementById("profile");
 let profileItems = profile.getElementsByTagName("p");
-let profileTexts = [];
-let profileButton = document.getElementById("profile-button")
+let button = document.querySelector("button");
 let svgWidth = '100%';
 let svgHeight = 800;
 let svg = d3.select("graph")
@@ -49,7 +48,7 @@ let edgePaths = ["graph-1-120.json", "graph-1-2.json", "graph-3-9.json",
     "graph-86-104.json", "graph-105-120.json"
 ];
 
-// Default show the first option
+// Default show the first option or previou selected option
 let index = getCookie("period", 0);
 
 for (let i = 0; i < profileItems.length; i++) {
@@ -91,6 +90,15 @@ period.onchange = function() {
         })
     })
 }
+
+// deselect button
+button.addEventListener("click", ()=>{
+    d3.json('data/' + nodePath, function(nodes) {
+        d3.json('data/' + edgePath, function(edges) {
+            makeGraph(nodes, edges, index);
+        })
+    })
+});
 
 // -------------------Make graph------------------------------
 
