@@ -1,4 +1,4 @@
-let width = 8000;
+let width = 800;
 let height = 80;
 let mysvg = d3.select("aside").append("svg").attr("width", width).attr("height", height);
 
