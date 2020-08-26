@@ -1,6 +1,7 @@
 body {
     width: 95%;
     min-width: 900px;
+    max-width: 1200px;
     margin: 0 auto;
     font-family: 'Jomolhari', serif;
     font-size: 16px;
@@ -45,7 +46,7 @@ main article {
     /* position: absolute; */
     display: block;
     text-align: left;
-    z-index: 3;
+    /* z-index: 3; */
     padding: 20px;
     background: rgba(204, 204, 204, 0.3);
 }
@@ -60,18 +61,18 @@ main .note {
 }
 
 main aside {
-    display: inline-block;
-    position: absolute;
-    top: 250px;
+    /* display: inline-block;
+    position: absolute; */
+    top: 20px; 
     right: 2px;
     list-style: none;
-    z-index: 1;
+    /* z-index: 1; */
 }
 
 main graph {
-    /* display: block; */
+    display: block;
     top: 10px;
-    z-index: 5;
+    /* z-index: 5; */
 }
 
 footer {

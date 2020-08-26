@@ -1,18 +1,18 @@
-let width = 82;
-let height = 400;
+let width = 8000;
+let height = 80;
 let mysvg = d3.select("aside").append("svg").attr("width", width).attr("height", height);
 
 d3.json("data/count-people.json", function(data) {
     let dataset = [data.count["Wei"], data.count["Shu"], data.count["Wu"], data.count["Jin"], data.count["Other"]];
     let color = ["blue", "green", "red", "purple", "grey"];
     let faction = ["Wei", "Shu", "Wu", "Jin", "Other"];
-    let ylinear = d3.scale.linear().domain([0, d3.max(dataset)]).range([0, 100]);
-    let yPos = [];
+    let xlinear = d3.scale.linear().domain([0, d3.max(dataset)]).range([0, 200]);
+    let xPos = [];
     for (let i = 0; i < dataset.length; i++) {
-        dataset[i] = ylinear(dataset[i]);
-        yPos[i] = i == 0 ? 0 : dataset[i - 1] + yPos[i - 1];
+        dataset[i] = xlinear(dataset[i]);
+        xPos[i] = i == 0 ? 0 : dataset[i - 1] + xPos[i - 1];
     }
-    let rectWidth = 80;
+    let rectHeight = 40;
     let fontSize = 20;
 
     let g = mysvg.selectAll("rect")
@@ -21,12 +21,12 @@ d3.json("data/count-people.json", function(data) {
         .append("g")
 
     g.append("rect")
-        .attr("x", (width - rectWidth) / 2)
-        .attr("y", function(d, i) {
-            return yPos[i];
+        .attr("y", 0)
+        .attr("x", function(d, i) {
+            return xPos[i];
         })
-        .attr("width", rectWidth)
-        .attr("height", function(d) {
+        .attr("height", rectHeight)
+        .attr("width", function(d) {
             return d;
         })
         .attr("fill", function(d, i) {
@@ -37,12 +37,12 @@ d3.json("data/count-people.json", function(data) {
         .text(function(d, i) {
             return faction[i];
         })
-        .attr("x", width / 2)
-        .attr("y", function(d, i) {
-            return yPos[i] + d / 2;
+        .attr("y", (rectHeight+fontSize) / 2)
+        .attr("x", function(d, i) {
+            return xPos[i] + d / 2;
         })
         .attr("font-size", fontSize)
         .attr("text-anchor", "middle")
-        .attr("fill", "white")
-        .attr("dy", fontSize / 4);
+        .attr("fill", "white");
+        // .attr("dy", fontSize / 4);
 });
