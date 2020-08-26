@@ -3,7 +3,6 @@ let height = 400;
 let mysvg = d3.select("aside").append("svg").attr("width", width).attr("height", height);
 
 d3.json("data/count-people.json", function(data) {
-    console.log(data);
     let dataset = [data.count["Wei"], data.count["Shu"], data.count["Wu"], data.count["Jin"], data.count["Other"]];
     let color = ["blue", "green", "red", "purple", "grey"];
     let faction = ["Wei", "Shu", "Wu", "Jin", "Other"];

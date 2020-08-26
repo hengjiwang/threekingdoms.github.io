@@ -95,3 +95,21 @@ footer a:hover {
 a:visited {
     color: black;
 }
+
+button{
+    background-color: rgba(204, 204, 204, 0.3);
+    border: 2px solid #555;
+    color: black;
+    padding: 5px 10px;
+    text-align: center;
+    text-decoration: none;
+    float: right;
+    /* display: inline-block; */
+    font-size: 15px;
+    border-radius: 6px;
+    box-shadow: 0 8px 16px 0 rgba(0,0,0,0.2), 0 6px 20px 0 rgba(0,0,0,0.19);
+}
+
+button:hover {
+    box-shadow: 0 12px 16px 0 rgba(0,0,0,0.24), 0 17px 50px 0 rgba(0,0,0,0.19);
+  }
