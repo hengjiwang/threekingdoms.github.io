@@ -50,6 +50,7 @@ let edgePaths = ["graph-1-120.json", "graph-1-2.json", "graph-3-9.json",
 
 // Default show the first option or previou selected option
 let index = getCookie("period", 0);
+period.selectedIndex = index;
 
 for (let i = 0; i < profileItems.length; i++) {
     profileItems[i].style.display = "none";
@@ -67,10 +68,10 @@ d3.json('data/' + nodePath, function(nodes) {
 // Change displayed innerText if option of period change
 period.onchange = function() {
     profileItems[index].style.display = "none";
-
     index = this.selectedIndex;
     document.cookie = "period=" + index;
     profileItems[index].style.display = "inline";
+
 
     nodePath = nodePaths[index];
     edgePath = edgePaths[index];
@@ -105,6 +106,7 @@ button.addEventListener("click", ()=>{
             makeGraph(nodes, edges, index);
         })
     })
+    
 });
 
 // -------------------Make graph------------------------------
