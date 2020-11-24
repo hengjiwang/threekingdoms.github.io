@@ -50,7 +50,9 @@ let edgePaths = ["graph-1-120.json", "graph-1-2.json", "graph-3-9.json",
 
 // Default show the first option or previou selected option
 let index = getCookie("period", 0);
+console.log(period.selectedIndex);
 period.selectedIndex = index;
+console.log(period.selectedIndex);
 
 for (let i = 0; i < profileItems.length; i++) {
     profileItems[i].style.display = "none";
@@ -106,7 +108,7 @@ button.addEventListener("click", ()=>{
             makeGraph(nodes, edges, index);
         })
     })
-    
+
 });
 
 // -------------------Make graph------------------------------
