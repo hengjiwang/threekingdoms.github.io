@@ -1,5 +1,7 @@
 body {
     width: 95%;
+    margin-left:auto;
+    margin-right:auto;
     min-width: 900px;
     max-width: 1200px;
     font-family: 'Jomolhari', serif;
@@ -36,13 +38,13 @@ header input {
 }
 
 main {
-    position: relative;
+    /* position: relative; */
     padding-top: 2%;
     align-items: center;
 }
 
 main article {
-    position: relative;
+    /* position: relative; */
     display: block;
     text-align: left;
     /* z-index: 3; */
