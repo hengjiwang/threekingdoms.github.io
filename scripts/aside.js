@@ -44,5 +44,4 @@ d3.json("data/count-people.json", function(data) {
         .attr("font-size", fontSize)
         .attr("text-anchor", "middle")
         .attr("fill", "white");
-        // .attr("dy", fontSize / 4);
 });

@@ -14,12 +14,7 @@ let color = { "Wei": "blue", "Shu": "green", "Wu": "red", "Jin": "purple", "Othe
 let tooltip = d3.select('body')
     .append('div')
     .style('position', 'absolute')
-    // .style('z-index', '10')
     .style('background-color', 'white')
-    // .style('width', '80px')
-    // .style('height', '20px')
-    // .style('text-align', 'center')
-    // .style('line-height', '20px')
     .style('color', 'black')
     .style('visibility', 'hidden')
     .style('font-size', '12px')
@@ -50,8 +45,6 @@ let edgePaths = ["graph-1-120.json", "graph-1-2.json", "graph-3-9.json",
 
 // Default show the first option or previou selected option
 let index = 0;
-// let index = getCookie("period", 0);
-// period.selectedIndex = index;
 
 for (let i = 0; i < profileItems.length; i++) {
     profileItems[i].style.display = "none";
@@ -171,7 +164,6 @@ function plotSVG(nodes, edges, myclick, oriedges, minEdge, maxEdge) {
         .links(edges)
         .size([800, 800])
         .linkDistance(function(l) {
-            // return forceScale(l.weight);
             if (myclick) {
                 return forceScale(l.weight);
             } else {
@@ -186,10 +178,8 @@ function plotSVG(nodes, edges, myclick, oriedges, minEdge, maxEdge) {
         .gravity(0)
         .charge(-200);
 
-    // force.resume();
     force.start();
     // Add lines
-    // console.log(minEdge, maxEdge);
     let colorscale = d3.scale.linear().domain([minEdge, maxEdge]).range([0.2, 1]);
     let linescale = d3.scale.linear().domain([minEdge, maxEdge]).range([1, 10]);
     let svgEdges = svg.selectAll("line")
@@ -205,7 +195,6 @@ function plotSVG(nodes, edges, myclick, oriedges, minEdge, maxEdge) {
 
 
     // Add nodes
-    // let countScale = d3.scale.linear().domain([minCount, maxCount]).range([15, 60]);
     let svgNodes = svg.selectAll("circle")
         .data(nodes)
         .enter()
@@ -346,21 +335,6 @@ function plotSVG(nodes, edges, myclick, oriedges, minEdge, maxEdge) {
         return plotSVG(newNodes, newEdges, true, oriedges, minEdge, maxEdge);
     });
 }
-
-// return the value of cname in the cookie otherwise return cval
-// function getCookie(cname, cval) {
-//     let key = cname + "=";
-//     let buffer = decodeURIComponent(document.cookie);
-//     let cookies = buffer.split(";");
-//     for (let i = 0; i < cookies.length; i++) {
-//         let cooki = cookies[i];
-//         let start = cooki.indexOf(key);
-//         if (start != -1) {
-//             return cooki.substring(start+key.length, cooki.length);
-//         }
-//     }
-//     return cval
-// }
 
 function validateXY(val, xy) {
     if (xy == "x") {
