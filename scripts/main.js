@@ -49,10 +49,9 @@ let edgePaths = ["graph-1-120.json", "graph-1-2.json", "graph-3-9.json",
 ];
 
 // Default show the first option or previou selected option
-let index = getCookie("period", 0);
-console.log(period.selectedIndex);
-period.selectedIndex = index;
-console.log(period.selectedIndex);
+let index = 0;
+// let index = getCookie("period", 0);
+// period.selectedIndex = index;
 
 for (let i = 0; i < profileItems.length; i++) {
     profileItems[i].style.display = "none";
@@ -349,19 +348,19 @@ function plotSVG(nodes, edges, myclick, oriedges, minEdge, maxEdge) {
 }
 
 // return the value of cname in the cookie otherwise return cval
-function getCookie(cname, cval) {
-    let key = cname + "=";
-    let buffer = decodeURIComponent(document.cookie);
-    let cookies = buffer.split(";");
-    for (let i = 0; i < cookies.length; i++) {
-        let cooki = cookies[i];
-        let start = cooki.indexOf(key);
-        if (start != -1) {
-            return cooki.substring(start+key.length, cooki.length);
-        }
-    }
-    return cval
-}
+// function getCookie(cname, cval) {
+//     let key = cname + "=";
+//     let buffer = decodeURIComponent(document.cookie);
+//     let cookies = buffer.split(";");
+//     for (let i = 0; i < cookies.length; i++) {
+//         let cooki = cookies[i];
+//         let start = cooki.indexOf(key);
+//         if (start != -1) {
+//             return cooki.substring(start+key.length, cooki.length);
+//         }
+//     }
+//     return cval
+// }
 
 function validateXY(val, xy) {
     if (xy == "x") {
