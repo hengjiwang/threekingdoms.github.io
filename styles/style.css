@@ -1,6 +1,6 @@
 body {
     width: 95%;
-    margin : 0 auto;
+    margin: 0 auto;
     min-width: 900px;
     max-width: 1200px;
     font-family: 'Jomolhari', serif;
@@ -37,16 +37,13 @@ header input {
 }
 
 main {
-    /* position: relative; */
     padding-top: 2%;
     align-items: center;
 }
 
 main article {
-    /* position: relative; */
     display: block;
     text-align: left;
-    /* z-index: 3; */
     padding: 20px;
     background: rgba(204, 204, 204, 0.3);
 }
@@ -61,18 +58,14 @@ main .note {
 }
 
 main aside {
-    /* display: inline-block;
-    position: absolute; */
     top: 20px; 
     right: 2px;
     list-style: none;
-    /* z-index: 1; */
 }
 
 main graph {
     display: block;
     top: 10px;
-    /* z-index: 5; */
 }
 
 footer {
@@ -105,7 +98,6 @@ button{
     text-align: center;
     text-decoration: none;
     float: right;
-    /* display: inline-block; */
     font-size: 15px;
     border-radius: 6px;
     box-shadow: 0 8px 16px 0 rgba(0,0,0,0.2), 0 6px 20px 0 rgba(0,0,0,0.19);
