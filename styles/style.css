@@ -1,6 +1,6 @@
 body {
     width: 95%;
-    margin: 0 auto;
+    margin: 0 auto !important;
     min-width: 900px;
     max-width: 1200px;
     font-family: 'Jomolhari', serif;
