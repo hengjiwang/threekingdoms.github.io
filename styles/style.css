@@ -1,108 +1,265 @@
+:root {
+    --ink: #1f1a17;
+    --muted-ink: #555;
+    --panel: rgba(255, 255, 255, 0.82);
+    --panel-strong: rgba(255, 255, 255, 0.94);
+    --accent: #8a5a2b;
+    --border: rgba(31, 26, 23, 0.24);
+    --shadow: 0 18px 45px rgba(31, 26, 23, 0.14);
+}
+
+* {
+    box-sizing: border-box;
+}
+
 body {
-    width: 95%;
+    width: min(95%, 1200px);
     margin: 0 auto !important;
-    min-width: 900px;
-    max-width: 1200px;
-    font-family: 'Jomolhari', serif;
+    min-width: 0;
+    font-family: Georgia, 'Times New Roman', serif;
     font-size: 16px;
+    line-height: 1.6;
+    color: var(--ink);
+    background:
+        linear-gradient(rgba(247, 239, 223, 0.88), rgba(247, 239, 223, 0.94)),
+        url('../images/thr-bkg.jpg') center top / cover fixed;
+}
+
+header {
+    padding: 28px 0 14px;
+}
+
+.eyebrow {
+    margin: 0 0 6px;
+    color: var(--accent);
+    font-family: Arial, Helvetica, sans-serif;
+    font-size: 13px;
+    font-weight: 800;
+    letter-spacing: 0.18em;
+    text-align: center;
+    text-transform: uppercase;
 }
 
 header h1 {
-    font-size: 38px;
+    margin: 0 0 10px;
+    font-size: clamp(30px, 5vw, 48px);
+    line-height: 1.15;
+    text-align: center;
+    text-wrap: balance;
+}
+
+.tagline {
+    max-width: 720px;
+    margin: 0 auto 22px;
+    color: var(--muted-ink);
+    font-family: Arial, Helvetica, sans-serif;
+    font-size: clamp(16px, 2vw, 19px);
     text-align: center;
 }
 
 header nav {
     display: flex;
     justify-content: space-between;
-    height: 40px;
-    line-height: 40px;
-    border-top: thick double black;
-    border-bottom: thick double black;
-    padding-left: 20px;
+    align-items: center;
+    gap: 16px;
+    flex-wrap: wrap;
+    min-height: 52px;
+    border-top: thick double var(--ink);
+    border-bottom: thick double var(--ink);
+    padding: 8px 16px;
+    background: var(--panel);
+    backdrop-filter: blur(3px);
+}
+
+.select.period,
+.select.search {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+.select.period {
+    flex: 1 1 360px;
+}
+
+.select.search {
+    flex: 1 1 280px;
+}
+
+header label {
+    font-weight: 700;
+    white-space: nowrap;
+}
+
+header select,
+header input {
+    width: 100%;
+    min-height: 38px;
+    color: var(--muted-ink);
+    background: var(--panel-strong);
+    border: 1px solid var(--border);
+    border-radius: 8px;
+    padding: 0 10px;
 }
 
 header select {
-    height: 25px;
-    color: #555;
-    border: 1px solid #ccc;
     cursor: pointer;
 }
 
-header input {
-    height: 18px;
-    padding-left: 6px;
-    color: #555;
-    border: 1px solid #ccc;
+header input:focus,
+header select:focus {
+    border-color: var(--accent);
+    box-shadow: 0 0 0 3px rgba(138, 90, 43, 0.18);
+    outline: none;
 }
 
 main {
     padding-top: 2%;
-    align-items: center;
 }
 
 main article {
     display: block;
     text-align: left;
-    padding: 20px;
-    background: rgba(204, 204, 204, 0.3);
+    padding: clamp(18px, 3vw, 32px);
+    background: var(--panel);
+    border: 1px solid var(--border);
+    border-radius: 16px;
+    box-shadow: var(--shadow);
+    position: relative;
+    overflow: hidden;
 }
 
-main a:link {
-    color: black;
+.profile p {
+    margin: 0;
+}
+
+.profile p::first-letter {
+    color: var(--accent);
+    font-size: 2.7em;
+    font-weight: 700;
+    line-height: 0.9;
+}
+
+main a:link,
+main a:visited,
+footer a:link,
+footer a:visited {
+    color: var(--ink);
+}
+
+main a:hover,
+main a:focus-visible,
+footer a:hover,
+footer a:focus-visible {
+    color: var(--accent);
+    text-decoration-thickness: 2px;
 }
 
 main .note {
-    font-family: 'Roboto', sans-serif;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 16px;
+    margin: 18px 0;
+    font-family: Arial, Helvetica, sans-serif;
     font-weight: bold;
 }
 
 main aside {
-    top: 20px; 
-    right: 2px;
-    list-style: none;
+    overflow-x: auto;
+    margin-bottom: 12px;
 }
 
-main graph {
+#graph {
     display: block;
-    top: 10px;
+    min-height: 420px;
+    background: rgba(255, 255, 255, 0.55);
+    border: 1px solid var(--border);
+    border-radius: 16px;
+    box-shadow: var(--shadow);
+    position: relative;
+    overflow: hidden;
+}
+
+.graph-status {
+    position: absolute;
+    inset: 0;
+    display: grid;
+    place-items: center;
+    margin: 0;
+    color: var(--muted-ink);
+    font-family: Arial, Helvetica, sans-serif;
+    font-weight: 700;
+}
+
+.graph-status[hidden] {
+    display: none;
+}
+
+#graph svg {
+    display: block;
+    width: 100%;
+    height: min(72vh, 800px);
+    min-height: 420px;
 }
 
 footer {
-    height: 30px;
-    line-height: 30px;
-    padding-top: 5px;
-    margin-bottom: 40px;
-    padding-left: 20px;
-    border-top: 2px solid black;
+    min-height: 30px;
+    line-height: 1.5;
+    padding: 16px 20px 40px;
+    margin-top: 24px;
+    border-top: 2px solid var(--ink);
+    background: var(--panel);
 }
 
-footer a:link {
-    text-decoration: none;
-    color: black;
-}
-
-footer a:hover {
-    text-decoration: underline;
-}
-
-a:visited {
-    color: black;
-}
-
-button{
-    background-color: rgba(204, 204, 204, 0.3);
-    border: 2px solid #555;
-    color: black;
-    padding: 5px 10px;
+button {
+    appearance: none;
+    background-color: var(--panel-strong);
+    border: 2px solid var(--muted-ink);
+    color: var(--ink);
+    padding: 8px 14px;
     text-align: center;
     text-decoration: none;
-    float: right;
     font-size: 15px;
-    border-radius: 6px;
-    box-shadow: 0 8px 16px 0 rgba(0,0,0,0.2), 0 6px 20px 0 rgba(0,0,0,0.19);
+    font-weight: 700;
+    border-radius: 999px;
+    cursor: pointer;
+    box-shadow: 0 8px 16px rgba(0, 0, 0, 0.14);
+    transition: transform 160ms ease, box-shadow 160ms ease, border-color 160ms ease;
 }
 
-button:hover {
-    box-shadow: 0 12px 16px 0 rgba(0,0,0,0.24), 0 17px 50px 0 rgba(0,0,0,0.19);
-  }
+button:hover,
+button:focus-visible {
+    border-color: var(--accent);
+    transform: translateY(-1px);
+    box-shadow: 0 12px 24px rgba(0, 0, 0, 0.18);
+}
+
+@media (max-width: 720px) {
+    body {
+        width: 100%;
+        padding: 0 12px;
+        background-attachment: scroll;
+    }
+
+    main .note,
+    .select.period,
+    .select.search {
+        align-items: stretch;
+        flex-direction: column;
+    }
+
+    button {
+        width: 100%;
+    }
+
+    #graph,
+    #graph svg {
+        min-height: 360px;
+    }
+
+    footer {
+        padding-left: 12px;
+        padding-right: 12px;
+    }
+}
