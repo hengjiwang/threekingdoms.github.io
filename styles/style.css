@@ -181,6 +181,21 @@ main aside {
     overflow: hidden;
 }
 
+.graph-status {
+    position: absolute;
+    inset: 0;
+    display: grid;
+    place-items: center;
+    margin: 0;
+    color: var(--muted-ink);
+    font-family: Arial, Helvetica, sans-serif;
+    font-weight: 700;
+}
+
+.graph-status[hidden] {
+    display: none;
+}
+
 #graph svg {
     display: block;
     width: 100%;

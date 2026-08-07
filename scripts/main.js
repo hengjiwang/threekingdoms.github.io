@@ -5,6 +5,7 @@ let button = document.querySelector("button");
 let characterSearch = document.getElementById("character-search");
 let activeSearch = "";
 let graphContainer = document.getElementById("graph");
+let graphStatus = graphContainer.querySelector(".graph-status");
 let svgWidth = graphContainer.clientWidth || 800;
 let svgHeight = Math.min(800, Math.max(420, Math.round(window.innerHeight * 0.72)));
 
@@ -368,6 +369,7 @@ function validateXY(val, xy) {
 }
 
 function makeGraph(nodes, edges, index) {
+    graphStatus.hidden = true;
     let data = editData(nodes, edges, index);
     plotSVG(data.nodes, data.edges, false, data.edges,
         edges[edges.length - 1].weight, data.edges[0].weight

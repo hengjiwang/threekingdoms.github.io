@@ -11,9 +11,10 @@
     <meta name="google-site-verification" content="IDDv6JlpC-InYv5T7p0PnWY8IF54x-DRbGuGPjxGkqI" />
     <title>Three Kingdoms Social Network</title>
     <link rel="shortcut icon" href="images/sanguo.ico" type="image/x-icon">
-    <link rel="stylesheet" type="text/css" href="styles/style.css">
+    <!-- Keep HTML, CSS, and JavaScript on the same release when GitHub Pages caches assets. -->
+    <link rel="stylesheet" type="text/css" href="styles/style.css?v=20260807">
     <base target="_blank" />
-    <script type='text/javascript' src='scripts/d3.min.js'></script>
+    <script type='text/javascript' src='scripts/d3.min.js?v=20260807'></script>
 </head>
 
 <body>
@@ -62,15 +63,17 @@
                     <br>Cao Cao then advanced toward Wu with a massive army. Sun Quan ordered <a href="https://en.wikipedia.org/wiki/Zhou_Yu">Zhou Yu</a> to lead 30,000 troops, joined by Liu Bei’s 20,000, against him. The two sides met at <a href="https://en.wikipedia.org/wiki/Battle_of_Red_Cliffs">Red Cliffs</a> along the <a href="https://en.wikipedia.org/wiki/Yangtze">Yangtze River</a>. In November 208 AD, Zhou Yu used a false-surrender plan to send burning ships into Cao Cao’s fleet and camps. Cao Cao’s army suffered a crushing defeat, ending his best chance to unify China.</p>
                 <p id="three-kingdoms">After Red Cliffs, Liu Bei secured Jingzhou and conquered <a href="https://en.wikipedia.org/wiki/Yi_Province">Yizhou</a> in 214 AD. In 219 AD, after taking <a href="https://en.wikipedia.org/wiki/Hanzhong">Hanzhong</a>, he declared himself King of Hanzhong to rival Cao Cao’s claim as King of <a href="https://en.wikipedia.org/wiki/Cao_Wei">Wei</a>. At the same time, <a href="https://en.wikipedia.org/wiki/Guan_Yu">Guan Yu</a> advanced on <a href="https://en.wikipedia.org/wiki/Xiangyang">Xiangyang</a> and besieged <a href="https://en.wikipedia.org/wiki/Battle_of_Fancheng">Fancheng</a>, bringing Liu Bei’s power to its height.<br>
                     <br>That same year, Sun Quan broke with Liu Bei and launched a surprise attack on Jingzhou, capturing and executing Guan Yu. In 220 AD, Cao Cao died, and his son <a href="https://en.wikipedia.org/wiki/Cao_Pi">Cao Pi</a> forced the Han Emperor to abdicate, founding Wei. Liu Bei answered by proclaiming himself emperor of <a href="https://en.wikipedia.org/wiki/Shu_Han">Shu Han</a>. He then attacked Wu to avenge Guan Yu, but <a href="https://en.wikipedia.org/wiki/Lu_Xun_(Three_Kingdoms)">Lu Xun</a> defeated him at <a href="https://en.wikipedia.org/wiki/Battle_of_Yiling_(208)">Yiling</a> in 222 AD. Liu Bei withdrew to <a href="https://en.wikipedia.org/wiki/Baidicheng">Baidicheng</a>, entrusted his heir <a href="https://en.wikipedia.org/wiki/Liu_Shan">Liu Shan</a> to <a href="https://en.wikipedia.org/wiki/Zhuge_Liang">Zhuge Liang</a>, and died in 223 AD.</p>
-                <p id="northern-expeditions">After Liu Bei’s death, Shu Han faced an uncertain future, and the new emperor Liu Shan was widely regarded as mediocre. Zhuge Liang therefore took charge of government affairs. He restored the alliance with Wu, pacified the <a href="https://en.wikipedia.org/wiki/Nanman">southern frontier</a>, rebuilt the economy, promoted capable officials and generals, strengthened the army, and repelled Wei offensives.<br>
-                    <br>Between 228 and 234 AD, Zhuge Liang launched five <a href="https://en.wikipedia.org/wiki/Zhuge_Liang%27s_Northern_Expeditions">Northern Expeditions</a> against Wei in the name of restoring the Han dynasty. Although Wei was much stronger than Shu Han, Zhuge Liang repeatedly gained tactical advantages and defeated several leading Wei generals. His rival <a href="https://en.wikipedia.org/wiki/Sima_Yi">Sima Yi</a> regarded him as a rare genius. Exhausted by the burdens of civil administration, military command, and personnel management, Zhuge Liang died on campaign in 234 AD at the age of 54.</p>
+                <p id="northern-expeditions">After Liu Bei’s death, Shu Han stood at the edge of collapse, while the new emperor Liu Shan was widely regarded as mediocre. Zhuge Liang took charge of nearly every affair of state, and the people of Shu looked to him as their savior. He restored the alliance with Wu, pacified the <a href="https://en.wikipedia.org/wiki/Nanman">southern frontier</a>, revived the economy, promoted capable officials and generals, rebuilt the army, and repelled Wei’s invasions.<br>
+                    <br>Between 228 and 234 AD, Zhuge Liang launched five <a href="https://en.wikipedia.org/wiki/Zhuge_Liang%27s_Northern_Expeditions">Northern Expeditions</a> against Wei in the name of restoring the Han dynasty. Though Wei was far more powerful than Shu Han, Zhuge Liang repeatedly seized the initiative and defeated its leading generals. Even his great rival <a href="https://en.wikipedia.org/wiki/Sima_Yi">Sima Yi</a> praised him as “an extraordinary genius under Heaven.” In the end, worn down by the immense burden of governing the state, commanding its armies, and managing its officials, Zhuge Liang died in camp in 234 AD, at the age of 54.</p>
                 <p id="reunification">After Zhuge Liang’s death, his protégé <a href="https://en.wikipedia.org/wiki/Jiang_Wei">Jiang Wei</a> continued Shu Han’s northern campaigns against Wei, but achieved little lasting success. In 263 AD, the Wei generals <a href="https://en.wikipedia.org/wiki/Deng_Ai">Deng Ai</a> and <a href="https://en.wikipedia.org/wiki/Zhong_Hui">Zhong Hui</a> led 180,000 soldiers toward Chengdu. Emperor Liu Shan surrendered, and Shu Han fell.<br>
                     <br>The long struggle against Shu Han had strengthened the Sima family’s power within Wei. In 266 AD, Sima Yan forced the Wei ruler to abdicate and founded the <a href="https://en.wikipedia.org/wiki/Jin_dynasty_(266%E2%80%93420)">Jin dynasty</a>. In 279 AD, Jin conquered Wu and reunited China, bringing the Three Kingdoms era to an end.</p>
             </div>
         </article>
         <p class="note">Click a character to enter its network. Drag nodes to reposition. <button type="button" aria-label="Deselect selected character">Deselect Character</button></p>
         <aside aria-label="Faction legend"></aside>
-        <div id="graph" role="img" aria-label="Interactive Three Kingdoms character relationship network"></div>
+        <div id="graph" role="img" aria-label="Interactive Three Kingdoms character relationship network">
+            <p class="graph-status" role="status">Loading character network…</p>
+        </div>
     </main>
 
     <footer>
@@ -81,8 +84,8 @@
         <br>
         <b>Avatars scraped from: </b><a class="mysrc" href="http://kongming.net/11/portraits/">kongming.net/11/portraits/</a>
     </footer>
-    <script src="scripts/main.js"></script>
-    <script src="scripts/aside.js"></script>
+    <script src="scripts/main.js?v=20260807"></script>
+    <script src="scripts/aside.js?v=20260807"></script>
 </body>
 
 </html>
