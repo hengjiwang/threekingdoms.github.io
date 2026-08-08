@@ -12,19 +12,51 @@
     <title>Three Kingdoms Social Network</title>
     <link rel="shortcut icon" href="images/sanguo.ico" type="image/x-icon">
     <!-- Keep HTML, CSS, and JavaScript on the same release when GitHub Pages caches assets. -->
-    <link rel="stylesheet" type="text/css" href="styles/style.css?v=20260807">
+    <link rel="stylesheet" type="text/css" href="styles/style.css?v=20260808">
     <base target="_blank" />
-    <script type='text/javascript' src='scripts/d3.min.js?v=20260807'></script>
+    <script type='text/javascript' src='scripts/d3.min.js?v=20260808'></script>
 </head>
 
 <body>
-    <header>
-        <p class="eyebrow">Interactive literary network</p>
-        <h1><em>Three Kingdoms</em> Social Network</h1>
-        <p class="tagline">Explore the shifting alliances, rivalries, and major figures across Luo Guanzhong’s epic.</p>
-        <nav>
+    <header class="site-header">
+        <nav class="topbar" aria-label="Primary navigation">
+            <a class="brand" href="./" target="_self" aria-label="Three Kingdoms home">
+                <span class="brand-mark" aria-hidden="true">三</span>
+                <span>Three Kingdoms</span>
+            </a>
+            <a class="github-link" href="https://github.com/hengjiwang/threekingdoms.github.io">View on GitHub <span aria-hidden="true">↗</span></a>
+        </nav>
+        <div class="hero">
+            <div class="hero-copy">
+                <p class="eyebrow"><span></span> An interactive literary atlas</p>
+                <h1>Power is a web.<br><em>Explore every thread.</em></h1>
+                <p class="tagline">Trace the alliances, rivalries, and encounters that shaped Luo Guanzhong’s epic—across 120 chapters and a cast of hundreds.</p>
+                <a class="hero-cta" href="#explorer" target="_self">Enter the network <span aria-hidden="true">↓</span></a>
+            </div>
+            <div class="hero-art" aria-hidden="true">
+                <span class="hero-seal">天下<br><small>UNDER HEAVEN</small></span>
+                <span class="orbit orbit-one"></span>
+                <span class="orbit orbit-two"></span>
+                <i class="dot dot-one"></i><i class="dot dot-two"></i><i class="dot dot-three"></i>
+            </div>
+        </div>
+        <div class="hero-stats" aria-label="Project statistics">
+            <p><strong>120</strong><span>Chapters mapped</span></p>
+            <p><strong>50</strong><span>Key figures per era</span></p>
+            <p><strong>9</strong><span>Historical periods</span></p>
+        </div>
+    </header>
+
+    <main id="explorer">
+        <div class="section-heading">
+            <p class="eyebrow"><span></span> Network explorer</p>
+            <h2>Choose an era. Discover its people.</h2>
+            <p>Every line represents a shared appearance; stronger ties pull characters closer together.</p>
+        </div>
+        <section class="explorer-shell">
+            <div class="explorer-toolbar">
             <div class="select period">
-                <label for="period">Period: </label>
+                <label for="period">Historical period</label>
                 <select id="period" name="period">
                     <option value="all-periods" selected>All Periods</option>
                     <option value="yellow-turban-rebellion">Yellow Turban Rebellion</option>
@@ -38,14 +70,13 @@
                 </select>
             </div>
             <div class="select search">
-                <label for="character-search">Find character: </label>
-                <input id="character-search" type="search" placeholder="Cao Cao, Liu Bei, Sun Quan..." autocomplete="off">
+                <label for="character-search">Find a character</label>
+                <div class="search-field"><span aria-hidden="true">⌕</span><input id="character-search" type="search" placeholder="Try Cao Cao or Liu Bei" autocomplete="off"></div>
             </div>
-        </nav>
-    </header>
-
-    <main>
-        <article>
+            </div>
+            <div class="explorer-content">
+        <article class="story-panel">
+            <p class="panel-kicker">The story so far</p>
             <div class="profile" id="profile">
                 <p id="all-periods">The Great River rolls east, carrying away every trace of proud and gallant heroes. Right and wrong, glory and failure, all become fleeting illusions, while the green hills remain beneath the fading western light.<br>
                     <br>Fishermen and woodcutters gather along the river islands. Grey-haired, they have watched many springs and autumns pass. Over a jar of wine, the famous deeds of earlier ages become stories for good company.<br>
@@ -69,23 +100,30 @@
                     <br>The long struggle against Shu Han had strengthened the Sima family’s power within Wei. In 266 AD, Sima Yan forced the Wei ruler to abdicate and founded the <a href="https://en.wikipedia.org/wiki/Jin_dynasty_(266%E2%80%93420)">Jin dynasty</a>. In 279 AD, Jin conquered Wu and reunited China, bringing the Three Kingdoms era to an end.</p>
             </div>
         </article>
-        <p class="note">Click a character to enter its network. Drag nodes to reposition. <button type="button" aria-label="Deselect selected character">Deselect Character</button></p>
-        <aside aria-label="Faction legend"></aside>
+        <section class="network-panel" aria-label="Interactive network visualization">
+        <div class="network-heading">
+            <div><p class="panel-kicker">Relationship map</p><h3>Character network</h3></div>
+            <button type="button" aria-label="Reset selected character"><span aria-hidden="true">↺</span> Reset view</button>
+        </div>
         <div id="graph" role="img" aria-label="Interactive Three Kingdoms character relationship network">
             <p class="graph-status" role="status">Loading character network…</p>
         </div>
+        <div class="network-meta">
+            <p class="note"><span aria-hidden="true">◎</span> Select a portrait to explore its network. Drag to reposition.</p>
+            <aside aria-label="Faction legend"></aside>
+        </div>
+        </section>
+            </div>
+        </section>
     </main>
 
-    <footer>
-        <b>Credits: </b> Hengji Wang & Yue Liu
-        <br>
-        <b>Data scraped from: </b><a class="mysrc" href="https://www.threekingdoms.com/">Romance of
-           Three Kingdoms (Translated by C. H. Brewitt-Taylor)</a>
-        <br>
-        <b>Avatars scraped from: </b><a class="mysrc" href="http://kongming.net/11/portraits/">kongming.net/11/portraits/</a>
+    <footer class="site-footer">
+        <div class="footer-brand"><span class="brand-mark" aria-hidden="true">三</span><p><strong>Three Kingdoms</strong><br>Social Network</p></div>
+        <p>Designed and built by Hengji Wang & Yue Liu.<br>A data-driven reading of a timeless epic.</p>
+        <p class="footer-links"><a href="https://www.threekingdoms.com/">Text source ↗</a><a href="http://kongming.net/11/portraits/">Portrait source ↗</a></p>
     </footer>
-    <script src="scripts/main.js?v=20260807"></script>
-    <script src="scripts/aside.js?v=20260807"></script>
+    <script src="scripts/main.js?v=20260808"></script>
+    <script src="scripts/aside.js?v=20260808"></script>
 </body>
 
 </html>

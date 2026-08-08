@@ -7,11 +7,11 @@ let activeSearch = "";
 let graphContainer = document.getElementById("graph");
 let graphStatus = graphContainer.querySelector(".graph-status");
 let svgWidth = graphContainer.clientWidth || 800;
-let svgHeight = Math.min(800, Math.max(420, Math.round(window.innerHeight * 0.72)));
+let svgHeight = Math.min(700, Math.max(540, Math.round(window.innerHeight * 0.68)));
 
 function createSvg() {
     svgWidth = graphContainer.clientWidth || 800;
-    svgHeight = window.matchMedia("(max-width: 720px)").matches ? 520 : Math.min(800, Math.max(420, Math.round(window.innerHeight * 0.72)));
+    svgHeight = window.matchMedia("(max-width: 620px)").matches ? 470 : Math.min(700, Math.max(540, Math.round(window.innerHeight * 0.68)));
 
     return d3.select("#graph")
         .append('svg')
@@ -23,9 +23,10 @@ function createSvg() {
 
 let svg = createSvg();
 
-let color = { "Wei": "blue", "Shu": "green", "Wu": "red", "Jin": "purple", "Other": "grey" };
+let color = { "Wei": "#3f6f99", "Shu": "#56845c", "Wu": "#d6533f", "Jin": "#81638c", "Other": "#8b877f" };
 let tooltip = d3.select('body')
     .append('div')
+    .attr('class', 'node-tooltip')
     .style('position', 'absolute')
     .style('background-color', 'white')
     .style('color', 'black')
@@ -84,6 +85,7 @@ period.onchange = function() {
     edgePath = edgePaths[index];
 
     // Rebuild canvas
+    graphStatus.hidden = false;
     svg.remove();
     svg = createSvg();
 
@@ -102,6 +104,7 @@ characterSearch.addEventListener("input", function() {
 
 // deselect button
 button.addEventListener("click", function() {
+    graphStatus.hidden = false;
     svg.remove();
     svg = createSvg();
 
