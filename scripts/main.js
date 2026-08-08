@@ -1,7 +1,8 @@
 let period = document.getElementById("period");
 let profile = document.getElementById("profile");
 let profileItems = profile.getElementsByTagName("p");
-let button = document.querySelector("button");
+let resetButton = document.querySelector(".network-heading button");
+let eraButtons = document.querySelectorAll(".era-button");
 let characterSearch = document.getElementById("character-search");
 let activeSearch = "";
 let graphContainer = document.getElementById("graph");
@@ -73,12 +74,22 @@ d3.json('data/' + nodePath, function(nodes) {
     })
 })
 
-// Change displayed innerText if option of period change
-period.onchange = function() {
+// Keep the sidebar and compact mobile selector in sync.
+function selectPeriod(nextIndex) {
     profileItems[index].style.display = "none";
-    index = this.selectedIndex;
+    index = nextIndex;
+    period.selectedIndex = index;
     document.cookie = "period=" + index;
     profileItems[index].style.display = "inline";
+
+    for (let i = 0; i < eraButtons.length; i++) {
+        eraButtons[i].classList.toggle("active", i === index);
+        if (i === index) {
+            eraButtons[i].setAttribute("aria-current", "true");
+        } else {
+            eraButtons[i].removeAttribute("aria-current");
+        }
+    }
 
 
     nodePath = nodePaths[index];
@@ -97,13 +108,24 @@ period.onchange = function() {
     })
 }
 
+// Change the displayed story and graph when the period changes.
+period.onchange = function() {
+    selectPeriod(this.selectedIndex);
+}
+
+for (let i = 0; i < eraButtons.length; i++) {
+    eraButtons[i].addEventListener("click", function() {
+        selectPeriod(Number(this.getAttribute("data-period-index")));
+    });
+}
+
 characterSearch.addEventListener("input", function() {
     activeSearch = this.value.trim().toLowerCase();
     applyNodeSearch();
 });
 
 // deselect button
-button.addEventListener("click", function() {
+resetButton.addEventListener("click", function() {
     graphStatus.hidden = false;
     svg.remove();
     svg = createSvg();

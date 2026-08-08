@@ -18,7 +18,7 @@
 </head>
 
 <body>
-    <header class="site-header">
+    <header class="site-header compact-header">
         <nav class="topbar" aria-label="Primary navigation">
             <a class="brand" href="./" target="_self" aria-label="Three Kingdoms home">
                 <span class="brand-mark" aria-hidden="true">三</span>
@@ -26,36 +26,17 @@
             </a>
             <a class="github-link" href="https://github.com/hengjiwang/threekingdoms.github.io">View on GitHub <span aria-hidden="true">↗</span></a>
         </nav>
-        <div class="hero">
-            <div class="hero-copy">
-                <p class="eyebrow"><span></span> An interactive literary atlas</p>
-                <h1>Power is a web.<br><em>Explore every thread.</em></h1>
-                <p class="tagline">Trace the alliances, rivalries, and encounters that shaped Luo Guanzhong’s epic—across 120 chapters and a cast of hundreds.</p>
-                <a class="hero-cta" href="#explorer" target="_self">Enter the network <span aria-hidden="true">↓</span></a>
-            </div>
-            <div class="hero-art" aria-hidden="true">
-                <span class="hero-seal">天下<br><small>UNDER HEAVEN</small></span>
-                <span class="orbit orbit-one"></span>
-                <span class="orbit orbit-two"></span>
-                <i class="dot dot-one"></i><i class="dot dot-two"></i><i class="dot dot-three"></i>
-            </div>
-        </div>
-        <div class="hero-stats" aria-label="Project statistics">
-            <p><strong>120</strong><span>Chapters mapped</span></p>
-            <p><strong>50</strong><span>Key figures per era</span></p>
-            <p><strong>9</strong><span>Historical periods</span></p>
-        </div>
     </header>
 
     <main id="explorer">
         <div class="section-heading">
             <p class="eyebrow"><span></span> Network explorer</p>
-            <h2>Choose an era. Discover its people.</h2>
-            <p>Every line represents a shared appearance; stronger ties pull characters closer together.</p>
+            <h1>Three Kingdoms Social Network</h1>
+            <p>Choose an era and trace the alliances, rivalries, and encounters across all 120 chapters.</p>
         </div>
         <section class="explorer-shell">
             <div class="explorer-toolbar">
-            <div class="select period">
+            <div class="select period mobile-period">
                 <label for="period">Historical period</label>
                 <select id="period" name="period">
                     <option value="all-periods" selected>All Periods</option>
@@ -75,6 +56,18 @@
             </div>
             </div>
             <div class="explorer-content">
+        <nav class="era-sidebar" aria-label="Historical periods">
+            <p class="panel-kicker">Historical periods</p>
+            <button class="era-button active" type="button" data-period-index="0" aria-current="true"><span>00</span>All Periods</button>
+            <button class="era-button" type="button" data-period-index="1"><span>01</span>Yellow Turban Rebellion</button>
+            <button class="era-button" type="button" data-period-index="2"><span>02</span>Dong Zhuo in Power</button>
+            <button class="era-button" type="button" data-period-index="3"><span>03</span>Rivalry of Warlords</button>
+            <button class="era-button" type="button" data-period-index="4"><span>04</span>Battle of Guandu</button>
+            <button class="era-button" type="button" data-period-index="5"><span>05</span>Battle of Red Cliffs</button>
+            <button class="era-button" type="button" data-period-index="6"><span>06</span>Three Kingdoms</button>
+            <button class="era-button" type="button" data-period-index="7"><span>07</span>Northern Expeditions</button>
+            <button class="era-button" type="button" data-period-index="8"><span>08</span>Reunification</button>
+        </nav>
         <article class="story-panel">
             <p class="panel-kicker">The story so far</p>
             <div class="profile" id="profile">
@@ -112,9 +105,8 @@
         </section>
     </main>
 
-    <footer class="site-footer">
+    <footer class="site-footer simplified-footer">
         <div class="footer-brand"><span class="brand-mark" aria-hidden="true">三</span><p><strong>Three Kingdoms</strong><br>Social Network</p></div>
-        <p>Designed and built by Hengji Wang & Yue Liu.<br>A data-driven reading of a timeless epic.</p>
         <p class="footer-links"><a href="https://www.threekingdoms.com/">Text source ↗</a><a href="http://kongming.net/11/portraits/">Portrait source ↗</a></p>
     </footer>
     <script src="scripts/main.js?v=20260808"></script>
