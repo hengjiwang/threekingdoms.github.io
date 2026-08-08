@@ -2,17 +2,31 @@ let period = document.getElementById("period");
 let profile = document.getElementById("profile");
 let profileItems = profile.getElementsByTagName("p");
 let button = document.querySelector("button");
-let svgWidth = '100%';
-let svgHeight = 800;
-let svg = d3.select("graph")
-    .append('svg')
-    .attr('width', svgWidth)
-    .attr('height', svgHeight)
-    .attr("meetOrSlice", "slice");
+let characterSearch = document.getElementById("character-search");
+let activeSearch = "";
+let graphContainer = document.getElementById("graph");
+let graphStatus = graphContainer.querySelector(".graph-status");
+let svgWidth = graphContainer.clientWidth || 800;
+let svgHeight = Math.min(700, Math.max(540, Math.round(window.innerHeight * 0.68)));
 
-let color = { "Wei": "blue", "Shu": "green", "Wu": "red", "Jin": "purple", "Other": "grey" };
+function createSvg() {
+    svgWidth = graphContainer.clientWidth || 800;
+    svgHeight = window.matchMedia("(max-width: 620px)").matches ? 470 : Math.min(700, Math.max(540, Math.round(window.innerHeight * 0.68)));
+
+    return d3.select("#graph")
+        .append('svg')
+        .attr('width', '100%')
+        .attr('height', svgHeight)
+        .attr('viewBox', '0 0 ' + svgWidth + ' ' + svgHeight)
+        .attr('preserveAspectRatio', 'xMidYMid meet');
+}
+
+let svg = createSvg();
+
+let color = { "Wei": "#3f6f99", "Shu": "#56845c", "Wu": "#d6533f", "Jin": "#81638c", "Other": "#8b877f" };
 let tooltip = d3.select('body')
     .append('div')
+    .attr('class', 'node-tooltip')
     .style('position', 'absolute')
     .style('background-color', 'white')
     .style('color', 'black')
@@ -71,12 +85,9 @@ period.onchange = function() {
     edgePath = edgePaths[index];
 
     // Rebuild canvas
+    graphStatus.hidden = false;
     svg.remove();
-    svg = d3.select("graph")
-        .append('svg')
-        .attr('width', svgWidth)
-        .attr('height', svgHeight)
-        .attr("meetOrSlice", "slice");
+    svg = createSvg();
 
     // Rebuild graph
     d3.json('data/' + nodePath, function(nodes) {
@@ -86,14 +97,16 @@ period.onchange = function() {
     })
 }
 
+characterSearch.addEventListener("input", function() {
+    activeSearch = this.value.trim().toLowerCase();
+    applyNodeSearch();
+});
+
 // deselect button
-button.addEventListener("click", ()=>{
+button.addEventListener("click", function() {
+    graphStatus.hidden = false;
     svg.remove();
-    svg = d3.select("graph")
-        .append('svg')
-        .attr('width', svgWidth)
-        .attr('height', svgHeight)
-        .attr("meetOrSlice", "slice");
+    svg = createSvg();
 
     d3.json('data/' + nodePath, function(nodes) {
         d3.json('data/' + edgePath, function(edges) {
@@ -156,13 +169,28 @@ function editData(nodes, edges, index) {
 
 // plot svg
 
+function applyNodeSearch() {
+    let nodes = svg.selectAll("circle");
+
+    if (!activeSearch) {
+        nodes.style("opacity", 1).style("stroke-width", 4);
+        return;
+    }
+
+    nodes.style("opacity", function(d) {
+        return d.name.toLowerCase().indexOf(activeSearch) >= 0 ? 1 : 0.22;
+    }).style("stroke-width", function(d) {
+        return d.name.toLowerCase().indexOf(activeSearch) >= 0 ? 7 : 3;
+    });
+}
+
 function plotSVG(nodes, edges, myclick, oriedges, minEdge, maxEdge) {
     // Layout
     let forceScale = d3.scale.linear().domain([minEdge, maxEdge]).range([300, 150]);
     let force = d3.layout.force()
         .nodes(nodes)
         .links(edges)
-        .size([800, 800])
+        .size([svgWidth, svgHeight])
         .linkDistance(function(l) {
             if (myclick) {
                 return forceScale(l.weight);
@@ -244,13 +272,14 @@ function plotSVG(nodes, edges, myclick, oriedges, minEdge, maxEdge) {
             return tooltip.style('visibility', 'visible').text(d.name);
         })
         .on('mousemove', function(d, i) {
-            return tooltip.style('top', (event.pageY - 10) + 'px').style('left', (event.pageX + 10) + 'px')
+            return tooltip.style('top', (d3.event.pageY - 10) + 'px').style('left', (d3.event.pageX + 10) + 'px')
         })
         .on('mouseout', function(d, i) {
             return tooltip.style('visibility', 'hidden')
         })
         .call(force.drag);
 
+    applyNodeSearch();
 
     // Update
     force.on("tick", function() {
@@ -281,11 +310,7 @@ function plotSVG(nodes, edges, myclick, oriedges, minEdge, maxEdge) {
     svgNodes.on("click", function(d) {
         if (d3.event.defaultPrevented) return;
         svg.remove();
-        svg = d3.select("graph")
-            .append('svg')
-            .attr('width', svgWidth)
-            .attr('height', svgHeight)
-            .attr("meetOrSlice", "slice");
+        svg = createSvg();
 
         let newEdges = [];
         let newNodes = [];
@@ -338,7 +363,7 @@ function plotSVG(nodes, edges, myclick, oriedges, minEdge, maxEdge) {
 
 function validateXY(val, xy) {
     if (xy == "x") {
-        let webWidth = document.body.clientWidth - 30;
+        let webWidth = svgWidth - 30;
         return val > 30 ? (val > webWidth ? webWidth : val) : 30;
     } else {
         let webHeight = svgHeight - 30;
@@ -347,9 +372,9 @@ function validateXY(val, xy) {
 }
 
 function makeGraph(nodes, edges, index) {
+    graphStatus.hidden = true;
     let data = editData(nodes, edges, index);
     plotSVG(data.nodes, data.edges, false, data.edges,
-        edges[edges.length - 1].weight, data.edges[0].weight,
+        edges[edges.length - 1].weight, data.edges[0].weight
     );
-    let svg2 = d3.select("graph").select("svg");
 }
