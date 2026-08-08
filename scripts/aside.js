@@ -1,10 +1,10 @@
 let width = 800;
 let height = 80;
-let mysvg = d3.select("aside").append("svg").attr("width", width).attr("height", height);
+let mysvg = d3.select("aside").append("svg").attr("width", "100%").attr("height", height).attr("viewBox", "0 0 " + width + " " + height).attr("preserveAspectRatio", "xMinYMid meet");
 
 d3.json("data/count-people.json", function(data) {
     let dataset = [data.count["Wei"], data.count["Shu"], data.count["Wu"], data.count["Jin"], data.count["Other"]];
-    let color = ["blue", "green", "red", "purple", "grey"];
+    let color = ["#3f6f99", "#56845c", "#d6533f", "#81638c", "#8b877f"];
     let faction = ["Wei", "Shu", "Wu", "Jin", "Other"];
     let xlinear = d3.scale.linear().domain([0, d3.max(dataset)]).range([0, 200]);
     let xPos = [];
