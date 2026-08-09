@@ -3,8 +3,6 @@ let profile = document.getElementById("profile");
 let profileItems = profile.getElementsByTagName("p");
 let resetButton = document.querySelector(".network-heading button");
 let eraButtons = document.querySelectorAll(".era-button");
-let characterSearch = document.getElementById("character-search");
-let activeSearch = "";
 let graphContainer = document.getElementById("graph");
 let graphStatus = graphContainer.querySelector(".graph-status");
 let svgWidth = graphContainer.clientWidth || 800;
@@ -118,11 +116,6 @@ for (let i = 0; i < eraButtons.length; i++) {
         selectPeriod(Number(this.getAttribute("data-period-index")));
     });
 }
-
-characterSearch.addEventListener("input", function() {
-    activeSearch = this.value.trim().toLowerCase();
-    applyNodeSearch();
-});
 
 // deselect button
 resetButton.addEventListener("click", function() {
@@ -300,8 +293,6 @@ function plotSVG(nodes, edges, myclick, oriedges, minEdge, maxEdge) {
             return tooltip.style('visibility', 'hidden')
         })
         .call(force.drag);
-
-    applyNodeSearch();
 
     // Update
     force.on("tick", function() {
