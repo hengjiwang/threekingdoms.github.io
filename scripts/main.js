@@ -184,6 +184,21 @@ function editData(nodes, edges, index) {
 
 // plot svg
 
+function applyNodeSearch() {
+    let nodes = svg.selectAll("circle");
+
+    if (!activeSearch) {
+        nodes.style("opacity", 1).style("stroke-width", 4);
+        return;
+    }
+
+    nodes.style("opacity", function(d) {
+        return d.name.toLowerCase().indexOf(activeSearch) >= 0 ? 1 : 0.22;
+    }).style("stroke-width", function(d) {
+        return d.name.toLowerCase().indexOf(activeSearch) >= 0 ? 7 : 3;
+    });
+}
+
 function plotSVG(nodes, edges, myclick, oriedges, minEdge, maxEdge) {
     // Layout
     let forceScale = d3.scale.linear().domain([minEdge, maxEdge]).range([300, 150]);
